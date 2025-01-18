@@ -1,12 +1,16 @@
 .calculator {
   width: 320px;
+  min-width: 320px; /* 최소 너비 */
+  min-height: 80px; /* 최소 높이 */
+  max-width: 320px; /* 최대 너비 */
+  max-height: 80px; /* 최대 높이 */
   margin: 70px auto;
   text-align: center;
 
   display: grid;
   grid-template-rows: repeat(5, 1fr);
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
-    rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 4px, rgba(0, 0, 0, 0.4) 0px 7px 13px 5px,
+    rgba(0, 0, 0, 0.2) 0px 3px 1px inset;
 }
 .calculator__row {
   display: grid;
@@ -14,13 +18,24 @@
 }
 
 .calculator__display {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 1px, rgba(0, 0, 0, 0.4) 0px 7px 13px -3px,
+    rgba(0, 0, 0, 0.2) 0px -3px 0px;
+}
+
+.calculator__display--previous {
+  padding: 20px;
+  font-size: 36px;
+  text-align: end;
+  color: #a7a7a6;
+}
+
+.calculator__display--number {
   padding: 20px;
   font-size: 36px;
   text-align: right;
   background-color: #282827;
   color: white;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
-    rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+
   border-radius: 10px;
 }
 

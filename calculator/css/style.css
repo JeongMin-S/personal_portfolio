@@ -11,3 +11,7 @@ body {
 .hidden {
   display: none;
 }
+
+.button:active {
+  transform: scale(0.95);
+}
