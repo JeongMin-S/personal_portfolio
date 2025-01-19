@@ -12,6 +12,6 @@ body {
   display: none;
 }
 
-.button:active {
+.btnActive {
   transform: scale(0.95);
 }

@@ -1,9 +1,7 @@
 const display = document.querySelector(".calculator__display--number");
 const btns = document.querySelectorAll(".calculator__btn");
-
 const previousDisplay = document.querySelector(".calculator__display--previous");
-//calculator__previous--display
-// calculator__display--previous
+
 let currentInput = "0";
 let previousInput = null;
 let operator = null;
@@ -38,21 +36,17 @@ function calculate() {
 
   if (operator === "+") {
     currentInput = (prev + curr).toString();
-    handlePreviousDisplay(prev, operator, curr);
   } else if (operator === "-") {
     currentInput = (prev - curr).toString();
-    handlePreviousDisplay(prev, operator, curr);
   } else if (operator === "x") {
     currentInput = (prev * curr).toString();
-    handlePreviousDisplay(prev, operator, curr);
   } else if (operator === "/") {
     currentInput = (prev / curr).toString();
-    handlePreviousDisplay(prev, operator, curr);
   } else {
     //%
     currentInput = (prev % curr).toString();
-    handlePreviousDisplay(prev, operator, curr);
   }
+  handlePreviousDisplay(prev, operator, curr);
   previousInput = null;
   operator = null;
   shouldResetDisplay = true;
@@ -114,4 +108,12 @@ updateDisplay();
 
 btns.forEach((btn) => {
   btn.addEventListener("click", handleButtonClick);
+
+  //버튼 클릭 효과
+  btn.addEventListener("click", function () {
+    this.classList.add("btnActive");
+    setTimeout(() => {
+      this.classList.remove("btnActive");
+    }, 75);
+  });
 });
