@@ -1,6 +1,7 @@
 const display = document.querySelector(".calculator__display--number");
 const btns = document.querySelectorAll(".calculator__btn");
 const previousDisplay = document.querySelector(".calculator__display--previous");
+const btnAcDel = document.querySelector(".calculator__btn--acdel");
 
 let currentInput = "0";
 let previousInput = null;
@@ -11,22 +12,35 @@ function handlePreviousDisplay(prev, operator, curr) {
   previousDisplay.textContent = `${prev}${operator}${curr}`;
 }
 
-function resetCalculator() {
-  if (shouldResetDisplay) {
+function handleBtnAcDel(event) {
+  const btnAcDel = event.target.textContent;
+  if (btnAcDel == "ac") {
     currentInput = "0";
     previousInput = null;
     operator = null;
     shouldResetDisplay = false;
-    previousDisplay.textContent = null;
+    previousDisplay.textContent = "";
   } else {
-    if (currentInput.length > 1) {
-      currentInput = currentInput.slice(0, -1);
+    //btnAcDel == "del"
+    if (shouldResetDisplay) {
+      if (operator) {
+        operator = null;
+        currentInput = previousInput;
+        previousInput = null;
+      }
+      shouldResetDisplay = false;
     } else {
-      currentInput = "0";
+      if (currentInput.length === 1) {
+        currentInput = "0";
+      } else {
+        currentInput = currentInput.slice(0, -1);
+      }
     }
   }
+
   updateDisplay();
 }
+
 function calculate() {
   if (!operator || previousInput === null) {
     return;
@@ -47,16 +61,23 @@ function calculate() {
     currentInput = (prev % curr).toString();
   }
   handlePreviousDisplay(prev, operator, curr);
+
   previousInput = null;
   operator = null;
   shouldResetDisplay = true;
+
   updateDisplay();
+  setTimeout(() => {
+    // 동기, 비동기 문제
+    btnAcDel.textContent = "ac";
+  }, 0);
 }
 
 function handleOperatorInput(clickButtonValue) {
   previousInput = currentInput;
   operator = clickButtonValue;
-  shouldResetDisplay = true; //?
+  shouldResetDisplay = true;
+  updateDisplay();
 }
 
 function handleNumberInput(number) {
@@ -74,7 +95,11 @@ function handleNumberInput(number) {
 }
 
 function updateDisplay() {
-  display.textContent = currentInput;
+  if (previousInput !== null && operator !== null && shouldResetDisplay) {
+    display.textContent = previousInput + "" + operator;
+  } else {
+    display.textContent = currentInput;
+  }
 }
 
 //화면 클릭
@@ -84,8 +109,8 @@ function handleButtonClick(event) {
   if (!isNaN(clickButtonValue)) {
     //Number
     handleNumberInput(clickButtonValue);
-  } else if (clickButtonValue == "ac") {
-    resetCalculator();
+  } else if (clickButtonValue == "ac" || clickButtonValue == "del") {
+    handleBtnAcDel(event);
   } else if (clickButtonValue == "+/-") {
     currentInput *= -1;
     updateDisplay();
@@ -97,14 +122,13 @@ function handleButtonClick(event) {
   } else if (clickButtonValue == "a") {
     // 이전 기록 확인
   } else if (clickButtonValue == "=") {
+    btnAcDel.textContent = "ac";
     calculate();
   } else {
     // %, /, x, -, +,
     handleOperatorInput(clickButtonValue);
   }
 }
-
-updateDisplay();
 
 btns.forEach((btn) => {
   btn.addEventListener("click", handleButtonClick);
@@ -116,4 +140,13 @@ btns.forEach((btn) => {
       this.classList.remove("btnActive");
     }, 75);
   });
+
+  btn.addEventListener("click", function () {
+    if (display.textContent != 0) {
+      btnAcDel.textContent = "del";
+    } else {
+      btnAcDel.textContent = "ac";
+    }
+  });
 });
+updateDisplay();
