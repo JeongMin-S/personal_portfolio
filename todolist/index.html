@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDoList</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!--
+        -초기 화면    
+            소셜 로그인 기능(로그아웃을 하지 않으면 정보를 저장해서 다음에 새로고침 해도 로그인 상태가 유지되도록 (localstorage))
+            OAuth 2.0 API를 직접 사용 -> Express
+        -메인 화면
+            -달력
+                달력에 특정 날짜 클릭 시 해당 날짜의 todolist 출력
+                완료하지 않은 할 일 존재 시 달력에 표시(완료하지 않은 할 일의 개수 표시)
+            -투두리스트(할 일 목표 표시)
+                할 일 추가 기능!
+                할 일 삭제 기능!
+                할 일 완료 했을 때 체크 기능!
+                할 일 수정 기능
+                할 일 순서 변경 기능
+    -->
+
+    <div class="toggle">
+      <button class="toggle--btn" value="btn">btn</button>
+    </div>
+
+    <div class="main">
+      <div class="calendarScreen">hi</div>
+
+      <div class="toDoListScreen">
+        <form class="toDoListScreen__form">
+          <input
+            class="toDoListScreen__form--input"
+            type="text"
+            required
+            placeholder="Add Your ToDoList"
+          />
+          <input type="submit" value="Add" />
+        </form>
+
+        <ul class="toDoListScreen__list"></ul>
+      </div>
+    </div>
+  </body>
+  <script src="js/toggle.js"></script>
+  <script src="js/todolist.js"></script>
+</html>
