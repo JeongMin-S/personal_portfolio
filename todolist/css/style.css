@@ -13,3 +13,16 @@ body {
   color: gray;
   opacity: 0.9;
 }
+
+.main {
+  padding: 50px 150px;
+  width: 920px;
+  height: 600px;
+  display: flex;
+  justify-content: space-around;
+}
+
+#calendar {
+  width: 460px;
+  height: 560px;
+}

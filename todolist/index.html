@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>ToDoList</title>
     <link rel="stylesheet" href="css/style.css" />
+    <!-- FullCalendar 라이브러리 추가 -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
   </head>
   <body>
     <!--
@@ -19,8 +22,7 @@
                 할 일 추가 기능!
                 할 일 삭제 기능!
                 할 일 완료 했을 때 체크 기능!
-                할 일 수정 기능
-                할 일 순서 변경 기능
+                할 일 수정 기능!
     -->
 
     <div class="toggle">
@@ -28,9 +30,10 @@
     </div>
 
     <div class="main">
-      <div class="calendarScreen">hi</div>
+      <div id="calendar"></div>
 
       <div class="toDoListScreen">
+        <div class="toDoListScreen_cal"></div>
         <form class="toDoListScreen__form">
           <input
             class="toDoListScreen__form--input"
@@ -45,6 +48,9 @@
       </div>
     </div>
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
   <script src="js/toggle.js"></script>
+  <script src="js/calender.js"></script>
   <script src="js/todolist.js"></script>
 </html>
