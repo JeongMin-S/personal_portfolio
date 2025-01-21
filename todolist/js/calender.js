@@ -1,3 +1,5 @@
+let calendar; // 🔹 캘린더 객체를 전역 변수로 선언
+
 document.addEventListener("DOMContentLoaded", function () {
   const calendarEl = document.getElementById("calendar");
 
@@ -9,8 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // 로컬스토리지 값 가져오기
   let toDos = JSON.parse(localStorage.getItem("toDos")) || [];
 
-  const calendar = new FullCalendar.Calendar(calendarEl, {
-    //라이브러리 값 설정
+  calendar = new FullCalendar.Calendar(calendarEl, {
+    // 🔹 전역 변수에 저장
     initialView: "dayGridMonth",
     selectable: true, // 날짜 선택 가능
     locale: "ko", // 한국어 설정
@@ -20,24 +22,23 @@ document.addEventListener("DOMContentLoaded", function () {
     events: Object.values(
       toDos.reduce((acc, todo) => {
         if (!todo.checked) {
-          // 체크되지 않은 할 일만 카운트
+          // ✅ 체크되지 않은 할 일만 카운트
           acc[todo.date] = acc[todo.date] || { count: 0, date: todo.date };
           acc[todo.date].count++;
         }
         return acc;
       }, {})
     ).map((item) => ({
-      title: `${item.count}`,
-      start: item.date,
+      title: `${item.count}`, // 해당 날짜의 미완료 투두 개수 표시
+      start: item.date, // YYYY-MM-DD 형식
       allDay: true,
     })),
 
-    //날짜 선택
+    // 날짜 선택
     dateClick: function (info) {
       const selectedDate = info.dateStr;
-      // 특정 날짜의 투두리스트를 필터링하여 보여주기
       showToDoListByDate(selectedDate);
-      updateSelectedDate(selectedDate); // 선택한 날짜 업데이트
+      updateSelectedDate(selectedDate); // ✅ 선택한 날짜 업데이트 함수 추가
     },
   });
 
@@ -45,17 +46,22 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("✅ FullCalendar 렌더링 완료!");
 
   // 초기 로딩 시 오늘 날짜의 투두리스트 표시
-  const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD 형식
-  /**
-   * let now = new Date();
+  let now = new Date();
   let year = now.getFullYear();
   let month = String(now.getMonth() + 1).padStart(2, "0");
   let day = String(now.getDate()).padStart(2, "0");
-  const today = `${year}-${month}-${day}`; 
-  */
+  const today = `${year}-${month}-${day}`;
   showToDoListByDate(today);
 });
 
+// ✅ 선택한 날짜 업데이트 함수 추가
+function updateSelectedDate(date) {
+  selectedDate = date;
+  showToDoListByDate(selectedDate);
+  document.querySelector(".toDoListScreen_cal").innerText = selectedDate; // 선택한 날짜 표시 업데이트
+}
+
+// ✅ 투두리스트 필터링 및 출력
 function showToDoListByDate(selectedDate) {
   let toDos = JSON.parse(localStorage.getItem("toDos")) || [];
 
@@ -78,24 +84,25 @@ function showToDoListByDate(selectedDate) {
   });
 }
 
+// ✅ 캘린더 이벤트 업데이트 함수
 function updateCalendarEvents() {
   let toDos = JSON.parse(localStorage.getItem("toDos")) || [];
-  const calendar = FullCalendar.getCalendar("calendar"); // FullCalendar 인스턴스 가져오기
 
   if (calendar) {
+    // 🔹 전역 변수 `calendar` 사용
     calendar.removeAllEvents(); // 기존 이벤트 제거
     calendar.addEventSource(
       Object.values(
         toDos.reduce((acc, todo) => {
           if (!todo.checked) {
-            // 🔹 완료되지 않은 투두리스트만 카운트
+            // ✅ 체크되지 않은 투두리스트만 표시
             acc[todo.date] = acc[todo.date] || { count: 0, date: todo.date };
             acc[todo.date].count++;
           }
           return acc;
         }, {})
       ).map((item) => ({
-        title: `${item.count}`, // 해당 날짜의 미완료 투두 개수 표시
+        title: `${item.count}`,
         start: item.date,
         allDay: true,
       }))

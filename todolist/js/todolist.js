@@ -61,7 +61,13 @@ function checkToDo(event) {
   const span = li.querySelector("span");
 
   span.classList.toggle("checked");
-  updateCalendarEvents();
+
+  const toDoIndex = toDos.findIndex((toDo) => toDo.id === Number(li.id));
+  if (toDoIndex > -1) {
+    toDos[toDoIndex].checked = span.classList.contains("checked"); // ✅ 체크 여부 저장
+    saveToDos();
+    updateCalendarEvents(); // ✅ 캘린더 업데이트 추가
+  }
 }
 
 //로컬 스토리지 저장 기능
