@@ -64,9 +64,9 @@ function checkToDo(event) {
 
   const toDoIndex = toDos.findIndex((toDo) => toDo.id === Number(li.id));
   if (toDoIndex > -1) {
-    toDos[toDoIndex].checked = span.classList.contains("checked"); // ✅ 체크 여부 저장
+    toDos[toDoIndex].checked = span.classList.contains("checked"); //체크 여부 저장
     saveToDos();
-    updateCalendarEvents(); // ✅ 캘린더 업데이트 추가
+    updateCalendarEvents(); //캘린더 업데이트 추가
   }
 }
 
