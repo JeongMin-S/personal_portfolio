@@ -1,0 +1,19 @@
+.korean-input {
+  border: 2px solid blue;
+  background-color: #f0f8ff;
+}
+
+.japanese-input {
+  border: 2px solid red;
+  background-color: #fff0f5;
+}
+
+.default-input {
+  border: 2px solid gray;
+  background-color: #ffffff;
+}
+
+.chinese-input {
+  border: 2px solid green;
+  background-color: #f5fff0;
+}
